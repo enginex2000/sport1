@@ -1,8 +1,0 @@
-{
-  "deploy": {
-    "startCommand": "gunicorn app:app",
-    "env": {
-      "FLASK_ENV": "production"
-    }
-  }
-}
