@@ -1,9 +1,8 @@
 {
   "deploy": {
-    "startCommand": "python app.py",
+    "startCommand": "gunicorn app:app",
     "env": {
-      "FLASK_ENV": "production",
-      "PORT": "3000"
+      "FLASK_ENV": "production"
     }
   }
 }
