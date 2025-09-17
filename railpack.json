@@ -1,0 +1,9 @@
+{
+  "deploy": {
+    "startCommand": "python app.py",
+    "env": {
+      "FLASK_ENV": "production",
+      "PORT": "3000"
+    }
+  }
+}
