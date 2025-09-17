@@ -1,0 +1,58 @@
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+    height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to bottom right, #6a11cb, #2575fc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    width: 400px;
+    text-align: center;
+}
+
+.user-container h1 { margin-bottom: 20px; color: #333; }
+.user-container h2 { margin-bottom: 20px; color: #555; font-weight: normal; }
+
+label { display: block; text-align: left; margin: 10px 0 5px; font-weight: 500; }
+
+input[type="text"], input[type="date"], select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 15px;
+  transition: 0.3s;
+}
+
+input[type="text"]:focus, input[type="date"]:focus, select:focus {
+  border-color: #6a11cb;
+  outline: none;
+  box-shadow: 0 0 5px rgba(106,17,203,0.5);
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #2575fc;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button[type="submit"]:hover { background-color: #6a11cb; }
+
+@media (max-width: 450px) {
+  .container { width: 90%; padding: 30px 20px; }
+}

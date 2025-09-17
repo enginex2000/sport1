@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <title>Admin Panel</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f0f2f5; margin:0; padding:0; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px; background-color: #333; color: #fff; }
+    .header h1 { margin: 0; font-size: 24px; }
+    .buttons { display: flex; gap: 10px; }
+    .buttons form, .buttons a { margin: 0; }
+    button, .buttons a button { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; color: #000; font-weight: bold; }
+    .reset-btn { background-color: red; color: #fff; }
+    .export-btn { background-color: green; color: #fff; }
+    .logout-btn { background-color: #007bff; text-decoration: none; display: inline-block; }
+    .maintenance-btn { background-color: orange; color: #fff; }
+    table { border-collapse: collapse; width: 100%; margin-top: 15px; background-color: white; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    th { background-color: #eee; }
+    .flash { margin: 10px 0; padding: 10px; border-radius: 5px; }
+    .flash.error { background-color: #f8d7da; color: #721c24; }
+    .flash.success { background-color: #d4edda; color: #155724; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Admin Panel</h1>
+  <div class="buttons">
+    <!-- Reset form -->
+    <form method="post" action="{{ url_for('reset_data') }}">
+      <input type="date" name="date" value="{{ selected_date }}" required>
+      <input type="password" name="password" placeholder="รหัสผ่าน" required>
+      <button type="submit" class="reset-btn">Reset</button>
+    </form>
+
+    <!-- Export Excel -->
+    <form method="get" action="{{ url_for('export_excel') }}">
+      <button type="submit" class="export-btn">Export Excel</button>
+    </form>
+
+    <!-- Maintenance toggle -->
+    <form method="post" action="{{ url_for('toggle_maintenance') }}">
+      {% if maintenance %}
+        <button type="submit" class="maintenance-btn">ปิดปรับปรุง</button>
+      {% else %}
+        <button type="submit" class="maintenance-btn">เปิดปรับปรุง</button>
+      {% endif %}
+    </form>
+
+    <!-- Logout -->
+    <a href="{{ url_for('admin_logout') }}" class="logout-btn">
+      <button type="button">Logout</button>
+    </a>
+  </div>
+</div>
+
+<div style="padding:15px;">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <form method="POST" style="margin-bottom:15px;">
+    <label>เลือกวันที่:</label>
+    <input type="date" name="date" value="{{ selected_date }}">
+    <button type="submit">ค้นหา</button>
+    <button type="submit" name="show_all" value="1">ดูทั้งหมด</button>
+  </form>
+
+  <!-- <table>
+    <tr>
+      <th>ID</th>
+      <th>Created At</th>
+      <th>Time</th>
+      <th>Court</th>
+      <th>Name</th>
+      <th>Phone</th>
+    </tr>
+    {% for r in reservations %}
+    <tr>
+      <td>{{ r['id'] }}</td>
+      <td>{{ r['created_at'] }}</td>
+      <td>{{ r['times'] }}</td>
+      <td>{{ r['courts'] }}</td>
+      <td>{{ r['name'] }}</td>
+      <td>{{ r['phone'] }}</td>
+    </tr>
+    {% endfor %}
+  </table> -->
+    <table>
+    <tr>
+      <th>ID</th>
+      <th>Created At</th>
+      <th>Date</th> <!-- เพิ่มคอลัมน์วันที่ -->
+      <th>Time</th>
+      <th>Court</th>
+      <th>Name</th>
+      <th>Phone</th>
+    </tr>
+    {% for r in reservations %}
+    <tr>
+      <td>{{ r['id'] }}</td>
+      <td>{{ r['created_at'] }}</td>
+      <td>{{ r['date'] }}</td> <!-- แสดงวันที่จอง -->
+      <td>{{ r['times'] }}</td>
+      <td>{{ r['courts'] }}</td>
+      <td>{{ r['name'] }}</td>
+      <td>{{ r['phone'] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+</div>
+
+</body>
+</html>
